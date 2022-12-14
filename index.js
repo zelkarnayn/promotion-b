@@ -8,6 +8,9 @@ app.use(cors())
 app.use(express.json())
 mongoose.set('strictQuery', true)
 
+app.use(require("./routes/news.router"))
+app.use(require('./routes/comment.router'))
+
 
 const server = async () => {
     try {
