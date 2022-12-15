@@ -8,7 +8,7 @@ const FighterSchema = mongoose.Schema({
     alias: String,
     age: Number,
     height: Number,
-    wight: {
+    weight: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Category'
     },
