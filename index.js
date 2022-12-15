@@ -1,16 +1,23 @@
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
-require("dotenv").config();
-const cors = require("cors");
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const path = require('path')
+const app = express()
+require('dotenv').config()
 
-app.use(cors());
-app.use(express.json());
-mongoose.set("strictQuery", true);
+app.use(cors())
+mongoose.set('strictQuery', true)
+app.use(express.json())
+app.use('images/', express.static(path.join(__dirname, 'images')))
 
 app.use(require("./routes/news.router"));
 app.use(require("./routes/comment.router"));
 app.use(require("./routes/product.route"));
+app.use(require('./routes/categories.route'))
+app.use(require('./routes/fighters.route'))
+
+app.use(require("./routes/news.router"))
+app.use(require('./routes/comment.router'))
 
 const server = async () => {
   try {
