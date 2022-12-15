@@ -12,6 +12,9 @@ app.use(require('./routes/categories.route'))
 app.use(require('./routes/fighters.route'))
 mongoose.set('strictQuery', true)
 
+app.use(require("./routes/news.router"))
+app.use(require('./routes/comment.router'))
+
 const server = async () => {
     try {
         mongoose.connect(process.env.MONGO_DB, () => {
