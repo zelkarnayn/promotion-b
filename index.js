@@ -1,23 +1,24 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const path = require('path')
-const app = express()
-require('dotenv').config()
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const path = require("path");
+const app = express();
+require("dotenv").config();
 
-app.use(cors())
-mongoose.set('strictQuery', true)
-app.use(express.json())
-app.use('images/', express.static(path.join(__dirname, 'images')))
+app.use(cors());
+mongoose.set("strictQuery", true);
+app.use(express.json());
+app.use("images/", express.static(path.join(__dirname, "images")));
 
 app.use(require("./routes/news.router"));
 app.use(require("./routes/comment.router"));
 app.use(require("./routes/product.route"));
-app.use(require('./routes/categories.route'))
-app.use(require('./routes/fighters.route'))
+app.use(require("./routes/categories.route"));
+app.use(require("./routes/fighters.route"));
 
-app.use(require("./routes/news.router"))
-app.use(require('./routes/comment.router'))
+app.use(require("./routes/news.router"));
+app.use(require("./routes/comment.router"));
+app.use(require("./routes/cart.route"));
 
 const server = async () => {
   try {
