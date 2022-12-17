@@ -9,7 +9,7 @@ const productController = {
       res.json({ error: error.message });
     }
   },
-  getproduct: async (req, res) => {
+  getProduct: async (req, res) => {
     try {
       const product = await Products.findById(req.params.id);
       res.json(product);
@@ -34,7 +34,7 @@ const productController = {
     }
   },
 
-  deleteproduct: async (req, res) => {
+  deleteProduct: async (req, res) => {
     try {
       const product = await Products.findByIdAndDelete(req.params.id);
       res.json(product);
