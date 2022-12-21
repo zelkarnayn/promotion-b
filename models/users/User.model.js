@@ -5,6 +5,9 @@ const UserSchema = mongoose.Schema({
     password: {type: String, required: true},
     isActivated: {type: Boolean, default: false},
     activationLink: {type: String},
+    roles: [{type: String, ref: 'Role'}],
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true}
 })
 
 const User = mongoose.model('User', UserSchema)

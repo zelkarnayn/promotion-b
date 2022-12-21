@@ -7,19 +7,18 @@ const UserDto = require("../dtos/user.dto")
 const ApiError = require("../extensions/api.error")
 
 class userService {
-    async registration (email, password) {
+    async registration (email, password, firstName, lastName, userRole) {
         const candidate = await User.findOne({email})
         if (candidate) {
             throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже зарегистрирован`)
         }
         const activationLink = uuid.v4()
         const hashPassword = await bcrypt.hash(password, 3)
-        const user = await User.create({email, password: hashPassword, activationLink})
+        const user = await User.create({email, password: hashPassword, activationLink, firstName, lastName, roles: [userRole]})
         await mailService.sendActivationMail(email, `${process.env.API_URL}/activate/${activationLink}`)
         const userDto = new UserDto(user)
         const tokens = tokenService.generateToken({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-
         return {...tokens, user: userDto}
     }
     async activate (activationLink) {
@@ -69,6 +68,11 @@ class userService {
     async getAllUsers () {
         const users = await User.find()
         return users
+    }
+
+    async makeManager (id) {
+        const user = await User.findByIdAndUpdate(id, {roles: ['USER', 'MANAGER']})
+        return user
     }
 }
 
