@@ -69,8 +69,9 @@ class usersController {
     async makeManager(req, res, next) {
         try {
             const { id } = req.body
-            const userData = await userService.makeManager(id)
-            return res.json(userData)
+            await userService.makeManager(id)
+            const users = await userService.getAllUsers()
+            return res.json(users)
         } catch (error) {
             next(error);
         }
