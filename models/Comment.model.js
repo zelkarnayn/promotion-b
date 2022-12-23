@@ -12,7 +12,16 @@ const commentShema = mongoose.Schema({
     },
     newsId: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: "News"
+        ref: "News",
+        require: true,
+    },
+    user: {
+        ref: "User",
+        type: mongoose.SchemaTypes.ObjectId,
+    },
+    data: {
+        type: Date,
+        default: Date.now
     }
 })
 const Comment = mongoose.model("Comment", commentShema);
