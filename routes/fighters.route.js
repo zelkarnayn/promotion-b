@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { fightersController } = require('../controllers/fighters.controller')
 const router = Router()
-const imageMiddleware = require('../middleware/image')
+const imageMiddleware = require('../middleware/fighter.image')
 
 router.get('/fighters', fightersController.getFighters)
 router.post('/fighters', fightersController.addFighter)
