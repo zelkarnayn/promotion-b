@@ -19,7 +19,12 @@ const productController = {
   },
   createProduct: async (req, res) => {
     try {
-      const product = await Products.create(req.body);
+      const data = {
+        ...req.body,
+        image: req.file.filename,
+      };
+      const product = await Products.create(data);
+
       res.json(product);
     } catch (error) {
       res.json({ error: error.message });
@@ -38,6 +43,15 @@ const productController = {
     try {
       const product = await Products.findByIdAndDelete(req.params.id);
       res.json(product);
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+  addProductImage: async (req, res) => {
+    try {
+      if (req.file.path) {
+        res.json(req.file.path);
+      }
     } catch (error) {
       res.json({ error: error.message });
     }

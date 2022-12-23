@@ -1,7 +1,7 @@
-const Cart = require("../models/Cart.module");
+const Cart = require("../models/Cart.model");
 
 module.exports.cartController = {
-  getCart: async (req, res) => {
+  getFullCart: async (req, res) => {
     try {
       const cart = await Cart.find();
       res.json(cart);
@@ -9,8 +9,7 @@ module.exports.cartController = {
       res.json({ error: error.message });
     }
   },
-
-  addToCart: async (req, res) => {
+  addCartItem: async (req, res) => {
     try {
       const cart = await Cart.create(req.body);
       res.json(cart);
@@ -18,42 +17,30 @@ module.exports.cartController = {
       res.json({ error: error.message });
     }
   },
-  deleteCart: async (req, res) => {
+  deleteCartItem: async (req, res) => {
     try {
-      const cart = await Cart.findByIdAndDelete({ productId: req.params.id });
+      const cart = await Cart.findOneAndRemove({productId: req.params.id});
       res.json(cart);
     } catch (error) {
       res.json({ error: error.message });
     }
   },
-  updateCart: async (req, res) => {
-    const { type, count } = req.body;
+  changeCart: async (req, res) => {
+    const {type, count} = req.body
     try {
-      if (type.toString() == "minus") {
-        const cart = await Cart.findByIdAndUpdate(
-          req.params.id,
-          {
-            count: count,
-          },
-          {
-            new: true,
-          }
-        );
-        res.json(cart);
-      } else if (type.toString() == "plus") {
-        const cart = await Cart.findByIdAndUpdate(
-          req.params.id,
-          {
-            count: count,
-          },
-          {
-            new: true,
-          }
-        );
-        res.json(cart);
+      if (type.toString() == 'minus' ) {
+        const cart = await Cart.findByIdAndUpdate(req.params.id, {
+          count: count
+        }, {new: true})
+        res.json(cart)
+      } else if (type.toString() == 'plus' ) {
+        const cart = await Cart.findByIdAndUpdate(req.params.id, {
+          count: count
+        }, {new: true})
+        res.json(cart)
       }
     } catch (error) {
       res.json({ error: error.message });
     }
-  },
+  }
 };
