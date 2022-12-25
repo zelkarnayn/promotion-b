@@ -3,14 +3,21 @@ const Comment = require("../models/Comment.model")
 const commentController = {
     addComment: async (req, res) => {
         try {
-            const { idAuthor, text, newsId, user } = req.body
+            const { text, newsId, user } = req.body
             const comment = await Comment.create({
-                idAuthor,
+                // id из req.user / берем ид из токена
+                // author: req.user,
+
+                //временно
+                author: req.body.author,
+
                 text,
                 newsId, 
                 user
-            })
-            res.json(comment)
+            })           
+            const comments = await Comment.findById(comment._id).populate('author')
+
+            res.json(comments)
         } catch (error) {
             res.json(error.message)
         }
@@ -33,7 +40,7 @@ const commentController = {
     },
     getCommentaries: async (req, res) => {
         try {
-            const comments = Comment.find()
+            const comments = await Comment.find().populate('author')
             res.json(comments)
         } catch (error) {
             res.json(error.message)

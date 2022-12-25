@@ -1,9 +1,10 @@
 const { Router } = require('express')
 const usersController = require('../controllers/users/users.controller')
-const router = Router()
 const { body } = require('express-validator')
 const authMiddleware = require('../controllers/users/middlewares/auth.middleware')
 const rolesMiddleware = require('../controllers/users/middlewares/roles.middleware')
+
+const router = Router()
 
 router.post('/registration', 
     body('email').isEmail(),
