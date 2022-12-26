@@ -6,6 +6,9 @@ const app = express()
 const errorMiddleware = require('./controllers/users/middlewares/error.middlewares')
 require('dotenv').config()
 
+// временно чтобы populate сработал так как auth.route не работает
+require('./models/users/User.model')
+
 app.use(cors({
   credentials: true,
   origin: ["http://localhost:3000"]
@@ -17,14 +20,13 @@ app.use(require('./routes/categories.route'))
 app.use(require('./routes/fighters.route'))
 mongoose.set('strictQuery', false)
 
-app.use(require("./routes/news.router"));
-app.use(require("./routes/comment.router"));
-app.use(require("./routes/product.route"));
-app.use(require("./routes/categories.route"));
-app.use(require("./routes/fighters.route"));
-app.use(require('./routes/auth.route'))
-app.use(require("./routes/news.router"));
-app.use(require("./routes/comment.router"));
+app.use(require("./routes/comment.route"));
+// app.use(require("./routes/product.route"));
+// app.use(require("./routes/categories.route"));
+// app.use(require("./routes/fighters.route"));
+// app.use(require('./routes/auth.route'))
+app.use(require("./routes/news.route"));
+app.use(require("./routes/comment.route"));
 app.use(require("./routes/cart.route"));
 app.use(errorMiddleware)
 

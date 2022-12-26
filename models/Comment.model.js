@@ -1,10 +1,9 @@
 const { default: mongoose } = require("mongoose");
 
 const commentShema = mongoose.Schema({
-    idAuthor: {
+    author: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User",
-        default: "Анонимный пользователь"
     },
     text: {
         type: String,
@@ -14,10 +13,6 @@ const commentShema = mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: "News",
         require: true,
-    },
-    user: {
-        ref: "User",
-        type: mongoose.SchemaTypes.ObjectId,
     },
     data: {
         type: Date,

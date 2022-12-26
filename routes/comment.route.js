@@ -1,5 +1,7 @@
+const { Router } = require("express");
 const commentController = require("../controllers/comment.controllers");
-const router = require("./news.router");
+
+const router = Router()
 
 router.get("/comment/:id", commentController.printComment)
 router.get("/comments", commentController.getCommentaries)
