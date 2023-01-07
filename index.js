@@ -12,7 +12,7 @@ require('./models/users/User.model')
 
 app.use(cors({
   credentials: true,
-  origin: ["https://vocal-centaur-3bd07f.netlify.app"]
+  origin: ["https://melodic-biscuit-8d3763.netlify.app"]
 }))
 app.use(express.json())
 app.use(cookieParser())
